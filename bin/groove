@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+
+require('coffee-script');
+
+var path = require('path')
+  , groove = require(path.join(__dirname, '..', 'lib/main.coffee'))
+  , args = process.argv.splice(2)
+  , cmd = (args.shift() || 'help')
+  ;
+
+if(groove[cmd]) {
+  groove[cmd].apply(groove, args);
+}

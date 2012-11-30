@@ -4,6 +4,9 @@
   "description": "Grooveshark cli",
   "main": "gs-cli.js",
   "private": true,
+  "bin": {
+    "groove": "./bin/groove"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/design48/grooveshark-cli"
@@ -14,6 +17,8 @@
     "api"
   ],
   "dependencies": {
+    "coffee-script": "*",
+    "connect": "*",
     "commander": "*"
   },
   "author": "Ryan Regalado",

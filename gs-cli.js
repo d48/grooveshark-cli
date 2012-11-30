@@ -1,4 +1,8 @@
+#!/usr/bin/env node
+
 var crypto = require('crypto')
+  , require('coffeescript')
+  , program = require('commander')
   , secret  = '9e0004414522dafa6c9e466f940fde60'
   // , key = 'secret'
   , key = 'unix_design48'
