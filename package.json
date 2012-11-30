@@ -1,0 +1,21 @@
+{
+  "name": "grooveshark",
+  "version": "0.0.1",
+  "description": "Grooveshark cli",
+  "main": "gs-cli.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/design48/grooveshark-cli"
+  },
+  "keywords": [
+    "grooveshark",
+    "cli",
+    "api"
+  ],
+  "dependencies": {
+    "commander": "*"
+  },
+  "author": "Ryan Regalado",
+  "license": "MIT"
+}
