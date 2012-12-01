@@ -1,7 +1,10 @@
+path    = require('path')
+config  = require(path.join __dirname, '..', 'config.json')
+crypto  = require('crypto')
 exec    = require('child_process').exec
-# api  = require('../lib/api.coffee')
+# api   = require('../lib/api.coffee')
 log     = console.log
-
+apiurl  = "https://api.grooveshark.com/ws3.php"
 
 # process command
 execute = (cmd, cb) ->
@@ -12,35 +15,39 @@ execute = (cmd, cb) ->
         log "successful execution of command: #{cmd}"
     else 
         log "there was an error: #{err}"
+
+
+createSig = (pload) ->
+  crypto.createHmac('md5', config.secret).update(pload).digest('hex')
  
 # available commands from cli
 module.exports =
   play: ->
     execute 'play'
 
-  startsession: ->
-    log "these are args: #{@args}"
+  startsession: (args...) ->
+    # args: methodname + parameters + header
+    # {
+    #   'method': 'addUserFavoriteSong',
+    #   'parameters': {
+    #       'songID': 0
+    #   },
+    #   'header': {   
+    #     'wsKey': 'key',
+    #     'sessionID': 'sessionID' # <optional> 
+    #   }
+    # }
+    method = '"method": "startSession"'
+    params = '"parameters": {}'
+    header = '"header": {"wsKey": \"' + config.key + '\"}'
+
+    payload = "{#{method},#{params},#{header}}"
+    log payload
+
+    apisig  = createSig(payload)
+    request = "\ncurl -X POST #{apiurl}?sig=#{apisig} -d \'#{payload}\'"
+
+    log request
 
   help: ->
     log "help"
-
-# var crypto = require('crypto')
-#   , require('coffeescript')
-#   , program = require('commander')
-#   , secret  = '9e0004414522dafa6c9e466f940fde60'
-#   // , key = 'secret'
-#   , key = 'unix_design48'
-#   , payload = "{'method': 'addUserFavoriteSong', 'parameters': {'songID': 0}, 'header': {'wsKey': 'key', 'sessionID': 'sessionID'}}"
-#   // , payload = "{'method': 'startSession'}"
-#   , hash
-#   ;
-# 
-# hash = crypto.createHmac('md5', key).update(payload).digest('hex');
-# 
-# console.log('this is hash', hash);
-# 
-# function apiCall(method, param, header) {
-#   console.log(method, param, header)
-# }
-# 
-# apiCall('woot', 'hey', 3);
