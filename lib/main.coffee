@@ -1,53 +1,38 @@
-path    = require('path')
-config  = require(path.join __dirname, '..', 'config.json')
-crypto  = require('crypto')
-exec    = require('child_process').exec
-# api   = require('../lib/api.coffee')
-log     = console.log
-apiurl  = "https://api.grooveshark.com/ws3.php"
+exec = require('child_process').exec
+api  = require('./api.coffee')
+log  = console.log
+f    = require('./formatter.coffee')
 
 # process command
 execute = (cmd, cb) ->
   log "this is your command: #{cmd}"
 
+  calback = (error, response) ->
+    cb error, response if cb?
+
   exec "#{cmd}", (err, stdout, stderr) ->
-    if not err?
-        log "successful execution of command: #{cmd}"
+    if err?
+        log f.format "there was an error: #{err}", "error"
     else 
-        log "there was an error: #{err}"
+        log f.format "successful execution of command: #{cmd}", "success"
 
-
-createSig = (pload) ->
-  crypto.createHmac('md5', config.secret).update(pload).digest('hex')
- 
 # available commands from cli
 module.exports =
   play: ->
     execute 'play'
 
-  startsession: (args...) ->
-    # args: methodname + parameters + header
-    # {
-    #   'method': 'addUserFavoriteSong',
-    #   'parameters': {
-    #       'songID': 0
-    #   },
-    #   'header': {   
-    #     'wsKey': 'key',
-    #     'sessionID': 'sessionID' # <optional> 
-    #   }
-    # }
-    method = '"method": "startSession"'
-    params = '"parameters": {}'
-    header = '"header": {"wsKey": \"' + config.key + '\"}'
+  auth: ->
+    api.authenticateUser()
 
-    payload = "{#{method},#{params},#{header}}"
-    log payload
-
-    apisig  = createSig(payload)
-    request = "\ncurl -X POST #{apiurl}?sig=#{apisig} -d \'#{payload}\'"
-
-    log request
+  session: ->
+    api.startSession()
 
   help: ->
-    log "help"
+    log "\nUsage:\n"
+    log f.format "    groove <command> <args>", "help"
+
+  playlists: ->
+    api.getUserPlaylists()
+
+
+

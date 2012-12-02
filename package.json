@@ -1,8 +1,7 @@
 {
-  "name": "grooveshark",
+  "name": "grooveshark-cli",
   "version": "0.0.1",
   "description": "Grooveshark cli",
-  "main": "gs-cli.js",
   "private": true,
   "bin": {
     "groove": "./bin/groove"
