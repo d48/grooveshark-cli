@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+// vi:syntax=javascript
 
 require('coffee-script');
 
@@ -10,4 +11,6 @@ var path = require('path')
 
 if(groove[cmd]) {
   groove[cmd].apply(groove, args);
+} else {
+  groove['help'].apply(groove);
 }
