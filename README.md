@@ -21,7 +21,7 @@ Yay, it has colors!
 ![usage](http://content.screencast.com/users/User48/folders/Jing/media/a5cbde98-dfa6-4e56-a1a7-1acdec01b23c/00000083.png)
 
 
-### Version status
+## Version status
 
 This is still under development and not ready for use.
 
