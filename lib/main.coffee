@@ -1,7 +1,7 @@
 exec = require('child_process').exec
 api  = require('./api.coffee')
-log  = console.log
 f    = require('./formatter.coffee')
+log  = console.log
 
 # process command
 execute = (cmd, cb) ->
