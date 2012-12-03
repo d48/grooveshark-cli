@@ -1,10 +1,10 @@
-path   = require('path')
-config = require(path.join __dirname, '../config', 'config.json')
-crypto = require('crypto')
+path    = require('path')
+config  = require(path.join __dirname, '../config', 'config.json')
+crypto  = require('crypto')
 request = require('request')
-apiurl = "https://api.grooveshark.com/ws3.php"
-log    = console.log
-api
+apiurl  = "https://api.grooveshark.com/ws3.php"
+log     = console.log
+api     = ''
 
 # Available methods
 module.exports =
@@ -13,19 +13,6 @@ module.exports =
 
   sendApiReq: (req, cb) ->
 
-  ###
-  # args: methodname + parameters + header
-  # {
-  #   'method': 'addUserFavoriteSong',
-  #   'parameters': {
-  #       'songID': 0
-  #   },
-  #   'header': {   
-  #     'wsKey': 'key',
-  #     'sessionID': 'sessionID' # <optional> 
-  #   }
-  # }
-  ###
   startSession: ->
     payload = 
       method: "startSession"
@@ -35,14 +22,10 @@ module.exports =
 
     doRequest payload
 
-
   createUserToken: (user, pass) ->
     md5(user.toLowerCase() + md5(pass))
 
   authenticateUser: ->
-    # sessionID + username + token 
-    #   token = md5(lowercase(username) + md5(password))
-
     payload = 
       method: "authenticateUser"
       parameters: 
@@ -53,20 +36,13 @@ module.exports =
         sessionID: "3c53defdffffc814cd979f808c4d092e"
         
     # sessionID: @createSession
-
-    payload = JSON.stringify payload 
-    log payload
-
-    sig = @createSig(payload)
-
-    request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
-    log request
-
-    # make request and parse callback
+    doRequest payload
 
      
-  # sessionID returned from initial sessionstart, and then validate after authenticateUser
-  # pass through to next payload request. this works
+  ###
+  # sessionID returned from initial sessionstart, and then validate
+  # after authenticateUser. Pass through to next payload request. 
+  ###
   getUserPlaylists: ->
     payload =
       method: "getUserPlaylists"
@@ -75,14 +51,7 @@ module.exports =
         wsKey: config.key
         sessionID: "3c53defdffffc814cd979f808c4d092e"
         
-    payload = JSON.stringify payload 
-    log payload
-
-    sig = @createSig(payload)
-
-    request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
-    log request
-
+    doRequest payload
 
 ################################################################################
 # private methods
