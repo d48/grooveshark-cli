@@ -12,3 +12,10 @@ Install dependencies
 
 Link command to your path
 `$ npm link`
+
+
+## Usage
+
+Yay, it has colors!
+
+[usage](http://content.screencast.com/users/User48/folders/Jing/media/a5cbde98-dfa6-4e56-a1a7-1acdec01b23c/00000083.png)
