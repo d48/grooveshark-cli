@@ -1,14 +1,10 @@
 path   = require('path')
 config = require(path.join __dirname, '../config', 'config.json')
 crypto = require('crypto')
+request = require('request')
 apiurl = "https://api.grooveshark.com/ws3.php"
 log    = console.log
-
-# md5 using key
-md5 = (key) ->
-  crypto.createHash('md5').update(key).digest('hex')
-
-
+api
 
 # Available methods
 module.exports =
@@ -37,14 +33,8 @@ module.exports =
       header: 
         wsKey: config.key
 
-    payload = JSON.stringify payload
-    log payload
+    doRequest payload
 
-    sig = @createSig(payload)
-    request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
-
-    # execute command and parse result, saving into local session var to be used
-    log request
 
   createUserToken: (user, pass) ->
     md5(user.toLowerCase() + md5(pass))
@@ -92,5 +82,34 @@ module.exports =
 
     request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
     log request
+
+
+################################################################################
+# private methods
+################################################################################
+
+# make available to private method
+api = module.exports
+
+# md5 using key
+md5 = (key) ->
+  crypto.createHash('md5').update(key).digest('hex')
+
+doRequest = (payload, cb) ->
+  # setup req options
+  options = {}
+  options.url = apiurl
+
+  payload = JSON.stringify payload
+  log payload
+  
+  sig = api.createSig(payload)
+
+  # testing at command line
+  request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
+  log request
+
+  # execute command and parse result, saving into local session var to be used
+  # request.post options, callback
 
 
