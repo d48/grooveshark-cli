@@ -18,4 +18,4 @@ Link command to your path
 
 Yay, it has colors!
 
-[usage](http://content.screencast.com/users/User48/folders/Jing/media/a5cbde98-dfa6-4e56-a1a7-1acdec01b23c/00000083.png)
+![usage](http://content.screencast.com/users/User48/folders/Jing/media/a5cbde98-dfa6-4e56-a1a7-1acdec01b23c/00000083.png)
