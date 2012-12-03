@@ -29,4 +29,5 @@ This is still under development and not ready for use.
 
 1. Setting up request format
 2. Integrating socket.io to control webpage flash player from the command line
+3. Move private vars used by methods to private area outside of module.exports, e.g., createSig method
 
