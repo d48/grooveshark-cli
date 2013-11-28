@@ -7,10 +7,19 @@ var path = require('path')
   , groove = require(path.join(__dirname, '..', 'lib/main.coffee'))
   , args = process.argv.splice(2)
   , cmd = (args.shift() || 'help')
+  , fs = require('fs')
+  , file = (path.join(__dirname, '../config', 'config.json'))
   ;
 
-if(groove[cmd]) {
-  groove[cmd].apply(groove, args);
-} else {
-  groove['help'].apply(groove);
-}
+fs.exists(file, function(exists) {
+  if (!exists) {
+    console.log('./config/config.json does not exist. Please include and update keys');
+    return;
+  }
+
+  if(groove[cmd]) {
+    groove[cmd].apply(groove, args);
+  } else {
+    groove['help'].apply(groove);
+  }
+});
