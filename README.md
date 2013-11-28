@@ -4,14 +4,27 @@ This is a command line interface (CLI) to work with Grooveshark.com's api for us
 
 ## Installation
 
-Clone the repo
+1. Clone the repo
 `$ git clone git@github.com:design48/grooveshark-cli.git && cd grooveshark-cli`
 
-Install dependencies
+2. Install dependencies
 `$ npm install`
 
-Link command to your path
+3. Link command to your path
 `$ npm link`
+
+4. Request API access from Grooveshark
+http://developers.grooveshark.com/api
+
+5. Update API key in <repo>/config/config.json
+```
+{
+    "key": "GROOVESHARK_KEY"
+  , "secret": "GROOVESHARK_SECRET"
+  , "username": "GROOVESHARK_USERNAME"
+  , "password": "GROOVESHARK_PASSWORD"
+}
+```
 
 
 ## Usage
