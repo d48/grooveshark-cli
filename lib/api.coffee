@@ -25,6 +25,7 @@ module.exports =
   createUserToken: (user, pass) ->
     md5(user.toLowerCase() + md5(pass))
 
+  # todo: remove hardCoded sessionID
   authenticateUser: ->
     payload = 
       method: "authenticateUser"
@@ -42,6 +43,7 @@ module.exports =
   ###
   # sessionID returned from initial sessionstart, and then validate
   # after authenticateUser. Pass through to next payload request. 
+  # todo: remove hardCoded sessionID
   ###
   getUserPlaylists: ->
     payload =
@@ -78,7 +80,7 @@ doRequest = (payload, cb) ->
   request = "\ncurl -X POST #{apiurl}?sig=#{sig} -d \'#{payload}\'"
   log request
 
-  # execute command and parse result, saving into local session var to be used
+  # todo: execute command and parse result, saving into local session var to be used
   # request.post options, callback
 
 
