@@ -18,8 +18,8 @@ execute = (cmd, cb) ->
 
 # available commands from cli
 module.exports =
-  play: ->
-    execute 'play'
+  # play: ->
+    # execute 'play'
 
   auth: ->
     api.authenticateUser()
