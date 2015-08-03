@@ -2,6 +2,8 @@
 
 This is a command line interface (CLI) to work with Grooveshark.com's api for using their data and streaming.
 
+As of April 30, 2015, Grooveshark is no more. This repo is now obsolete and will remain for reference
+
 ## Installation
 
 1. Clone the repo
